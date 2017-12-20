@@ -1,6 +1,11 @@
 var cs = document.getElementById("cv");
 var ctx = cs.getContext("2d");
 
+var play = function () {
+    soundManager.createSound('son','shallnotpass.wav');
+    soundManager.play('son');
+}
+
 var drawGround = function ()
 {
 	for(let j=0;j<7;j++)
@@ -19,4 +24,9 @@ var drawZomb = function ()
 var ground = new Image();
 ground.src="ground.png";
 ground.onload = drawGround;
+
+soundManager.url='soundmanager2.swf';
+soundManager.debugMode=false;
+soundManager.onload = play;
+
 
