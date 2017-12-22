@@ -8,7 +8,7 @@ var play = function () {
 
 var drawGround = function ()
 {
-	for(let j=0;j<7;j++)
+	for(let j=0;j<8;j++)
     {
         for(let i=0;i<6;i++)
         {
@@ -17,10 +17,22 @@ var drawGround = function ()
     }
 }
 
-var drawZomb = function () 
+function follow(evenement)
 {
-	context.drawImage(zombies,sx,sy,32,32,x,y,64,64);
+    if(navigator.appName=="Microsoft Internet Explorer")
+    {
+            var x = event.x+document.body.scrollLeft;
+    }
+    else
+    {
+            var x =  evenement.pageX;
+    }
+    if(x>580 && x<1155)
+    {
+    	document.getElementById("gandalf").style.left = (x+1)+'px';
+    }
 }
+
 var ground = new Image();
 ground.src="ground.png";
 ground.onload = drawGround;
@@ -30,3 +42,4 @@ soundManager.debugMode=false;
 soundManager.onload = play;
 
 
+document.onmousemove = follow;
