@@ -8,12 +8,15 @@ var goblin = new Image();
 goblin.src="goblin.png";
 soundManager.url='soundmanager2.swf';
 soundManager.debugMode=false;
+var tower = new Image();
+tower.src="tower.png";
+var zombies = new Array();
 
 // Variables de coordonnées
-var sx = 0;
-var sy = 0;
-var x = Math.round(Math.random()*601);
-var y = Math.round(Math.random()*101);
+var sx;
+var sy;
+var x;
+var y;
 
 // Fonction qui joue une musique au lancement de la page
 var play = function () {
@@ -39,6 +42,12 @@ var drawGoblin = function ()
 	ctx.drawImage(goblin,sx,sy,32,32,x,y,32,32);
 }
 
+// Fonction qui dessine les tombes 
+var drawTower = function()
+{
+	ctx.drawImage(tower,0,0,244,563,x,y-30,32,32);
+}
+
 // Fonction pour faire suivre un élement au déplacement de la souris
 function follow(evenement)
 {
@@ -56,38 +65,79 @@ function follow(evenement)
     }
 }
 
-// Fonction qui cadence le déplacement des zombies vers le bas
-function autodown()
-{
-	setInterval(function () {
-		sx=sx+32;
-		if(sx==96)
+var perso = {
+	img: goblin,
+	x: Math.round(Math.random()*601),
+	y: Math.round(Math.random()*101),
+	sx: 0,
+	sy: 0,
+	change: function() {
+		this.x=Math.round(Math.random()*601);
+		this.y=Math.round(Math.random()*101);
+	},
+	create: function() {
+		ctx.drawImage(this.img,this.sx,this.sy,32,32,this.x,this.y,32,32);
+	},
+	move: function() {
+		this.sx=this.sx+32;
+		if(this.sx==96)
 		{
-			sx=0;
+			this.sx=0;
 		}
-		y=y+5;
-		if(y>768)
+		this.y=this.y+5;
+		if(this.y>768)
 		{
-			ctx.clearRect(0,0,600,800);
 			drawGround();
 		}
-		
 		else
 		{
-			ctx.clearRect(0,0,600,800);
 			drawGround();
-			drawGoblin();
+			for(var i=0;i<zombies.length;i++)
+			{
+				zombies[i].create();
+			}
 		}
-	},100)
+	}
 }
+
+
+// Fonction qui gère l'intelligence artificielle du jeu
+function AI()
+{
+	setInterval(function () {
+		if(zombies.length==0)
+		{
+			perso.create();
+			zombies.push(perso);
+		}
+		else 
+		{
+			var newperso=Object.create(perso);
+			newperso.change();
+			zombies.push(newperso);
+			for(var i=0;i<zombies.length;i++)
+			{
+				zombies[i].create();
+				
+			}
+		}
+	},2000)
+	setInterval(function () {
+		for(var i=0;i<zombies.length;i++)
+		{
+			zombies[i].move();
+		}
+	},100)	
+}
+
 
 // Fonction principale du jeu
 function game()
 {
 	drawGround();
-	play();
+	//play();
 	document.onmousemove = follow;
-	autodown();
+	AI();
 }
 
 window.onload = game;
