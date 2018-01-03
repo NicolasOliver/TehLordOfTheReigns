@@ -85,16 +85,16 @@ var perso = {
 			this.sx=0;
 		}
 		this.y=this.y+5;
-		if(this.y>768)
+		drawGround();
+		for(var i=0;i<zombies.length;i++)
 		{
-			drawGround();
-		}
-		else
-		{
-			drawGround();
-			for(var i=0;i<zombies.length;i++)
+			if(zombies[i].y<768)
 			{
 				zombies[i].create();
+			}
+			else
+			{
+				zombies.splice(i,1);
 			}
 		}
 	}
