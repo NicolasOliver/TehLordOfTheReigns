@@ -14,6 +14,8 @@ var zombies = new Array();
 var creation;
 var move;
 var pause = false;
+var life = 10;
+var loose = false;
 
 // Variables de coordonnées
 var sx;
@@ -90,6 +92,7 @@ var perso = {
 			else
 			{
 				zombies.splice(i,1);
+				life=life-1;
 			}
 		}
 	}
@@ -117,9 +120,18 @@ function AI()
 		}
 	},2000)
 	move=setInterval(function () {
-		for(var i=0;i<zombies.length;i++)
+		if(life>0 && life <=10)
 		{
-			zombies[i].move();
+			for(var i=0;i<zombies.length;i++)
+			{
+				zombies[i].move();
+			}
+		}
+		else {
+			clearInterval(creation);
+			clearInterval(move);
+			document.getElementById("loose").style.display = "block";
+			loose=true;
 		}
 	},100) 
 }
@@ -129,7 +141,7 @@ function stop() {
 	document.onkeydown = function(e) {
 		if(e.key==="p")
 		{
-			if(pause==false)
+			if(pause==false && loose==false)
 			{
 				clearInterval(creation);
 				clearInterval(move);
