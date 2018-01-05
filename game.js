@@ -11,6 +11,9 @@ soundManager.debugMode=false;
 var tower = new Image();
 tower.src="tower.png";
 var zombies = new Array();
+var creation;
+var move;
+var pause = false;
 
 // Variables de coordonnées
 var sx;
@@ -36,18 +39,6 @@ var drawGround = function ()
     }
 }
 
-// Fonction qui dessine les zombies de premier niveau
-var drawGoblin = function ()
-{
-	ctx.drawImage(goblin,sx,sy,32,32,x,y,32,32);
-}
-
-// Fonction qui dessine les tombes 
-var drawTower = function()
-{
-	ctx.drawImage(tower,0,0,244,563,x,y-30,32,32);
-}
-
 // Fonction pour faire suivre un élement au déplacement de la souris
 function follow(evenement)
 {
@@ -66,6 +57,7 @@ function follow(evenement)
 }
 
 var perso = {
+	grave: tower,
 	img: goblin,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
@@ -74,6 +66,9 @@ var perso = {
 	change: function() {
 		this.x=Math.round(Math.random()*601);
 		this.y=Math.round(Math.random()*101);
+	},
+	tower: function() {
+		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
 	},
 	create: function() {
 		ctx.drawImage(this.img,this.sx,this.sy,32,32,this.x,this.y,32,32);
@@ -100,11 +95,10 @@ var perso = {
 	}
 }
 
-
 // Fonction qui gère l'intelligence artificielle du jeu
 function AI()
 {
-	setInterval(function () {
+	creation=setInterval(function() {
 		if(zombies.length==0)
 		{
 			perso.create();
@@ -114,31 +108,52 @@ function AI()
 		{
 			var newperso=Object.create(perso);
 			newperso.change();
-			zombies.push(newperso);
+			newperso.create();
 			for(var i=0;i<zombies.length;i++)
 			{
 				zombies[i].create();
-				
 			}
+			zombies.push(newperso);
 		}
 	},2000)
-	setInterval(function () {
+	move=setInterval(function () {
 		for(var i=0;i<zombies.length;i++)
 		{
 			zombies[i].move();
 		}
-	},100)	
+	},100) 
 }
 
+// Fonction qui permet de mettre le jeu en pause
+function stop() {
+	document.onkeydown = function(e) {
+		if(e.key==="p")
+		{
+			if(pause==false)
+			{
+				clearInterval(creation);
+				clearInterval(move);
+				pause=true;
+				document.getElementById("pause").style.display = "block";
+			}
+			else
+			{
+				document.getElementById("pause").style.display = "none";
+				AI();
+				pause=false;
+			}
+		}
+	}
+}
 
 // Fonction principale du jeu
 function game()
 {
 	drawGround();
-	//play();
+	play();
 	document.onmousemove = follow;
+	stop();
 	AI();
 }
 
 window.onload = game;
-

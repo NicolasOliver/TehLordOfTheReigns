@@ -15,3 +15,21 @@ body {
 	display: block;
 	z-index: 5;" 
 }
+
+#pause {
+	text-align: center;
+	position: absolute;
+	left: 38.5%;
+	top: 50%;
+	font-size: 50px;
+	font-weight: bold;
+	display: none;
+}
+
+#won {
+	display: none;
+}
+
+#loose {
+	display: none;
+}
