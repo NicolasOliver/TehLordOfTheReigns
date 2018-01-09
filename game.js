@@ -147,9 +147,11 @@ function stop() {
 				clearInterval(move);
 				pause=true;
 				document.getElementById("pause").style.display = "block";
+				document.getElementById("cv").style.webkitFilter = "blur(3px)"
 			}
 			else
 			{
+				document.getElementById("cv").style.webkitFilter = "blur(0px)"
 				document.getElementById("pause").style.display = "none";
 				AI();
 				pause=false;

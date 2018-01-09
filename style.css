@@ -23,6 +23,7 @@ body {
 	top: 50%;
 	font-size: 50px;
 	font-weight: bold;
+	z-index: 1;
 	display: none;
 }
 
@@ -33,6 +34,7 @@ body {
 	top: 50%;
 	font-size: 50px;
 	font-weight: bold;
+	z-index: 1;
 	display: none;
 }
 
@@ -43,5 +45,6 @@ body {
 	top: 50%;
 	font-size: 50px;
 	font-weight: bold;
+	z-index: 1;
 	display: none;
 }
