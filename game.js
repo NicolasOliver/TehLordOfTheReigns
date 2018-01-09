@@ -32,8 +32,15 @@ var y;
 
 // Fonction qui joue une musique au lancement de la page
 var play = function () {
-    soundManager.createSound('son','shallnotpass.wav');
-    soundManager.play('son');
+	if(loose == false) {
+		soundManager.createSound('son','shallnotpass.wav', function () { soundManager.destroySound('son'); });
+    	soundManager.play('son');
+	}
+	if(loose == true) {
+		soundManager.createSound('son2','fly.wav', function () { soundManager.destroySound('son2'); });
+    	soundManager.play('son2');
+	}
+    
 }
 
 // Fonction qui dessine le plateau de jeu
@@ -46,6 +53,10 @@ var drawGround = function ()
             ctx.drawImage(ground,0,0,256,256,100*i,100*j,100,100);
         }
     }
+    ctx.fillStyle="white";
+    ctx.font="15px Georgia";
+    ctx.fillText("'p' : pause",5,15);
+    ctx.fillText("Life :"+life,250,15);
 }
 
 // Fonction pour faire suivre un élement au déplacement de la souris
@@ -65,7 +76,7 @@ function follow(evenement)
     }
 }
 
-var perso = {
+var goblin = {
 	grave: tower,
 	img: imgoblin,
 	x: Math.round(Math.random()*601),
@@ -88,7 +99,7 @@ var perso = {
 		{
 			this.sx=0;
 		}
-		this.y=this.y+5;
+		this.y=this.y+10;
 		drawGround();
 		for(var i=0;i<zombies.length;i++)
 		{
@@ -128,7 +139,7 @@ var sauron = {
 		{
 			this.sx=0;
 		}
-		this.y=this.y+5;
+		this.y=this.y+2;
 		drawGround();
 		for(var i=0;i<zombies.length;i++)
 		{
@@ -168,7 +179,7 @@ var balrog = {
 		{
 			this.sx=0;
 		}
-		this.y=this.y+5;
+		this.y=this.y+7;
 		drawGround();
 		for(var i=0;i<zombies.length;i++)
 		{
@@ -208,7 +219,7 @@ var nazgul = {
 		{
 			this.sx=0;
 		}
-		this.y=this.y+5;
+		this.y=this.y+4;
 		drawGround();
 		for(var i=0;i<zombies.length;i++)
 		{
@@ -232,19 +243,19 @@ function AI()
 		if(zombies.length==0)
 		{
 			balrog.create();
-			perso.create();
+			goblin.create();
       		sauron.create();
       		nazgul.create();
       		zombies.push(nazgul);
       		zombies.push(balrog);
-			zombies.push(perso);
+			zombies.push(goblin);
       		zombies.push(sauron);
 		}
 		else
 		{
-			var newperso=Object.create(perso);
-			newperso.change();
-			newperso.create();
+			var newgoblin=Object.create(goblin);
+			newgoblin.change();
+			newgoblin.create();
 
       		var newsauron=Object.create(sauron);
 			newsauron.change();
@@ -262,7 +273,7 @@ function AI()
 			{
 				zombies[i].create();
 			}
-			zombies.push(newperso);
+			zombies.push(newgoblin);
       		zombies.push(newsauron);
       		zombies.push(newbalrog);
       		zombies.push(newnazgul);
@@ -288,6 +299,7 @@ function AI()
 					window.location.reload();
 				}
 			}
+			play();
 		}
 	},100)
 }
