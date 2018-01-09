@@ -43,7 +43,7 @@ var play = function () {
 		soundManager.createSound('son2','fly.wav', function () { soundManager.destroySound('son2'); });
     	soundManager.play('son2');
 	}
-    
+
 }
 
 // Fonctions qui gère le timer du jeu
@@ -368,6 +368,32 @@ function stop() {
 	}
 }
 
+
+// Click sur les zombies
+function onclick_page(event)
+{
+  // Coordonnées du click
+  var cx = event.clientX;
+  var cy = event.clientY;
+
+  for (var i=0;i<zombies.length;i++){
+    var zone;
+    if (cx>(zombies[i].x - 100) && cy < (zombies[i].y + 100) && cy>(zombies[i].y - 100) && cy < (zombies[i].y + 100)){
+      zone = true;
+    }
+    else {
+      zone = false;
+    }
+  }
+  if(zone == true) {
+    console.log("Sur un zombie");
+  }
+  else{
+    console.log("en dehors");
+  }
+
+}
+
 // Fonction principale du jeu
 function game()
 {
@@ -377,6 +403,7 @@ function game()
 	document.onmousemove = follow;
 	stop();
 	AI();
+	onclick_page();
 }
 
 window.onload = game;
