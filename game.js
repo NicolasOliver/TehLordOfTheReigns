@@ -4,10 +4,14 @@ var ctx = cs.getContext("2d");
 // Ensemble des variables utiles
 var ground = new Image();
 ground.src="ground.png";
-var goblin = new Image();
-goblin.src="goblin.png";
-var sauron = new Image();
-sauron.src="Sauron.png";
+var imgoblin = new Image();
+imgoblin.src="goblin.png";
+var imsauron = new Image();
+imsauron.src="Sauron.png";
+var imbalrog= new Image();
+imbalrog.src="balrog.png";
+var imnazgul = new Image();
+imnazgul.src="Nazgul.png";
 soundManager.url='soundmanager2.swf';
 soundManager.debugMode=false;
 var tower = new Image();
@@ -63,7 +67,7 @@ function follow(evenement)
 
 var perso = {
 	grave: tower,
-	img: goblin,
+	img: imgoblin,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -100,9 +104,10 @@ var perso = {
 		}
 	}
 }
+
 var sauron = {
 	grave: tower,
-	img: sauron,
+	img: imsauron,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -140,16 +145,100 @@ var sauron = {
 	}
 }
 
+var balrog = {
+	grave: tower,
+	img: imbalrog,
+	x: Math.round(Math.random()*601),
+	y: Math.round(Math.random()*101),
+	sx: 0,
+	sy: 0,
+	change: function() {
+		this.x=Math.round(Math.random()*601);
+		this.y=Math.round(Math.random()*101);
+	},
+	tower: function() {
+		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
+	},
+	create: function() {
+		ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
+	},
+	move: function() {
+		this.sx=this.sx+129;
+		if(this.sx==516)
+		{
+			this.sx=0;
+		}
+		this.y=this.y+5;
+		drawGround();
+		for(var i=0;i<zombies.length;i++)
+		{
+			if(zombies[i].y<768)
+			{
+				zombies[i].create();
+			}
+			else
+			{
+				zombies.splice(i,1);
+				life=life-1;
+			}
+		}
+	}
+}
+
+var nazgul = {
+	grave: tower,
+	img: imnazgul,
+	x: Math.round(Math.random()*601),
+	y: Math.round(Math.random()*101),
+	sx: 0,
+	sy: 0,
+	change: function() {
+		this.x=Math.round(Math.random()*601);
+		this.y=Math.round(Math.random()*101);
+	},
+	tower: function() {
+		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
+	},
+	create: function() {
+		ctx.drawImage(this.img,this.sx,this.sy,160,195,this.x,this.y,100,100);
+	},
+	move: function() {
+		this.sx=this.sx+160;
+		if(this.sx==480)
+		{
+			this.sx=0;
+		}
+		this.y=this.y+5;
+		drawGround();
+		for(var i=0;i<zombies.length;i++)
+		{
+			if(zombies[i].y<768)
+			{
+				zombies[i].create();
+			}
+			else
+			{
+				zombies.splice(i,1);
+				life=life-1;
+			}
+		}
+	}
+}
+
 // Fonction qui gère l'intelligence artificielle du jeu
 function AI()
 {
 	creation=setInterval(function() {
 		if(zombies.length==0)
 		{
+			balrog.create();
 			perso.create();
-      sauron.create();
+      		sauron.create();
+      		nazgul.create();
+      		zombies.push(nazgul);
+      		zombies.push(balrog);
 			zombies.push(perso);
-      zombies.push(sauron);
+      		zombies.push(sauron);
 		}
 		else
 		{
@@ -157,16 +246,26 @@ function AI()
 			newperso.change();
 			newperso.create();
 
-      var newsauron=Object.create(sauron);
+      		var newsauron=Object.create(sauron);
 			newsauron.change();
 			newsauron.create();
+
+			var newbalrog=Object.create(balrog);
+			newbalrog.change();
+			newbalrog.create();
+
+			var newnazgul=Object.create(nazgul);
+			newnazgul.change();
+			newnazgul.create();
 
 			for(var i=0;i<zombies.length;i++)
 			{
 				zombies[i].create();
 			}
 			zombies.push(newperso);
-      zombies.push(newsauron);
+      		zombies.push(newsauron);
+      		zombies.push(newbalrog);
+      		zombies.push(newnazgul);
 		}
 	},2000)
 	move=setInterval(function () {
