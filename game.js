@@ -22,7 +22,10 @@ var move;
 var pause = false;
 var life = 10;
 var loose = false;
-//var win = false;
+var win = false;
+var point = 0;
+var timer=" 3:20";
+var compt = 0;
 
 // Variables de coordonnées
 var sx;
@@ -43,6 +46,26 @@ var play = function () {
     
 }
 
+// Fonctions qui gère le timer du jeu
+function startTimer() {
+  var presentTime = timer;
+  var timeArray = presentTime.split(/[:]+/);
+  var m = timeArray[0];
+  var s = checkSecond((timeArray[1] - 1));
+  if(s==59){m=m-1}
+  //if(m<0){alert('timer completed')}
+
+  timer = m+":"+s;
+  compt++;
+  setTimeout(startTimer, 1000);
+}
+
+function checkSecond(sec) {
+  if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+  if (sec < 0) {sec = "59"};
+  return sec;
+}
+
 // Fonction qui dessine le plateau de jeu
 var drawGround = function ()
 {
@@ -56,7 +79,9 @@ var drawGround = function ()
     ctx.fillStyle="white";
     ctx.font="15px Georgia";
     ctx.fillText("'p' : pause",5,15);
-    ctx.fillText("Life :"+life,250,15);
+    ctx.fillText("Life :"+life,270,15);
+    ctx.fillText("Timer :"+timer,500,15);
+    ctx.fillText("Point :"+point,535,785);
 }
 
 // Fonction pour faire suivre un élement au déplacement de la souris
@@ -280,26 +305,41 @@ function AI()
 		}
 	},2000)
 	move=setInterval(function () {
-		if(life>0 && life <=10)
-		{
-			for(var i=0;i<zombies.length;i++)
+		if(compt != 200) {
+			if(life>0 && life <=10)
 			{
-				zombies[i].move();
+				for(var i=0;i<zombies.length;i++)
+				{
+					zombies[i].move();
+				}
+			}
+			else {
+				clearInterval(creation);
+				clearInterval(move);
+				document.getElementById("cv").style.webkitFilter = "blur(3px)"
+				document.getElementById("loose").style.display = "block";
+				loose=true;
+				document.onkeydown = function(e) {
+					if(e.key === "r")
+					{
+						window.location.reload();
+					}
+				}
+				play();
 			}
 		}
 		else {
-			clearInterval(creation);
+		  	clearInterval(creation);
 			clearInterval(move);
-			document.getElementById("cv").style.webkitFilter = "blur(3px)"
-			document.getElementById("loose").style.display = "block";
-			loose=true;
+			win=true;
+			document.getElementById("won").style.display = "block";
+			document.getElementById("cv").style.webkitFilter = "blur(3px)";
 			document.onkeydown = function(e) {
 				if(e.key === "r")
 				{
 					window.location.reload();
 				}
 			}
-			play();
 		}
 	},100)
 }
@@ -309,7 +349,7 @@ function stop() {
 	document.onkeydown = function(e) {
 		if(e.key==="p")
 		{
-			if(pause==false && loose==false)
+			if(pause==false && loose==false && win==false)
 			{
 				clearInterval(creation);
 				clearInterval(move);
@@ -332,6 +372,7 @@ function stop() {
 function game()
 {
 	drawGround();
+	startTimer();
 	play();
 	document.onmousemove = follow;
 	stop();
