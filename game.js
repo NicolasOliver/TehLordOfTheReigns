@@ -6,6 +6,8 @@ var ground = new Image();
 ground.src="ground.png";
 var goblin = new Image();
 goblin.src="goblin.png";
+var sauron = new Image();
+sauron.src="Sauron.png";
 soundManager.url='soundmanager2.swf';
 soundManager.debugMode=false;
 var tower = new Image();
@@ -98,6 +100,45 @@ var perso = {
 		}
 	}
 }
+var sauron = {
+	grave: tower,
+	img: sauron,
+	x: Math.round(Math.random()*601),
+	y: Math.round(Math.random()*101),
+	sx: 0,
+	sy: 0,
+	change: function() {
+		this.x=Math.round(Math.random()*601);
+		this.y=Math.round(Math.random()*101);
+	},
+	tower: function() {
+		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
+	},
+	create: function() {
+		ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,50,100);
+	},
+	move: function() {
+		this.sx=this.sx+127;
+		if(this.sx==508)
+		{
+			this.sx=0;
+		}
+		this.y=this.y+5;
+		drawGround();
+		for(var i=0;i<zombies.length;i++)
+		{
+			if(zombies[i].y<768)
+			{
+				zombies[i].create();
+			}
+			else
+			{
+				zombies.splice(i,1);
+				life=life-1;
+			}
+		}
+	}
+}
 
 // Fonction qui gère l'intelligence artificielle du jeu
 function AI()
@@ -106,18 +147,26 @@ function AI()
 		if(zombies.length==0)
 		{
 			perso.create();
+      sauron.create();
 			zombies.push(perso);
+      zombies.push(sauron);
 		}
-		else 
+		else
 		{
 			var newperso=Object.create(perso);
 			newperso.change();
 			newperso.create();
+
+      var newsauron=Object.create(sauron);
+			newsauron.change();
+			newsauron.create();
+
 			for(var i=0;i<zombies.length;i++)
 			{
 				zombies[i].create();
 			}
 			zombies.push(newperso);
+      zombies.push(newsauron);
 		}
 	},2000)
 	move=setInterval(function () {
@@ -141,7 +190,7 @@ function AI()
 				}
 			}
 		}
-	},100) 
+	},100)
 }
 
 // Fonction qui permet de mettre le jeu en pause
