@@ -16,6 +16,7 @@ var move;
 var pause = false;
 var life = 10;
 var loose = false;
+//var win = false;
 
 // Variables de coordonnées
 var sx;
@@ -130,8 +131,15 @@ function AI()
 		else {
 			clearInterval(creation);
 			clearInterval(move);
+			document.getElementById("cv").style.webkitFilter = "blur(3px)"
 			document.getElementById("loose").style.display = "block";
 			loose=true;
+			document.onkeydown = function(e) {
+				if(e.key === "r")
+				{
+					window.location.reload();
+				}
+			}
 		}
 	},100) 
 }
