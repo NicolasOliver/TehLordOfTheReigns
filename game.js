@@ -26,6 +26,7 @@ var win = false;
 var point = 0;
 var timer=" 3:20";
 var compt = 0;
+var time;
 
 // Variables de coordonnées
 var sx;
@@ -53,11 +54,11 @@ function startTimer() {
   var m = timeArray[0];
   var s = checkSecond((timeArray[1] - 1));
   if(s==59){m=m-1}
-  //if(m<0){alert('timer completed')}
 
   timer = m+":"+s;
   compt++;
-  setTimeout(startTimer, 1000);
+  time=setTimeout(startTimer, 1000);
+  
 }
 
 function checkSecond(sec) {
@@ -353,6 +354,7 @@ function stop() {
 			{
 				clearInterval(creation);
 				clearInterval(move);
+				clearTimeout(time);
 				pause=true;
 				document.getElementById("pause").style.display = "block";
 				document.getElementById("cv").style.webkitFilter = "blur(3px)"
@@ -362,6 +364,7 @@ function stop() {
 				document.getElementById("cv").style.webkitFilter = "blur(0px)"
 				document.getElementById("pause").style.display = "none";
 				AI();
+				time=setTimeout(startTimer,1000);
 				pause=false;
 			}
 		}
