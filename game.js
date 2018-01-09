@@ -372,13 +372,14 @@ function stop() {
 // Click sur les zombies
 function onclick_page(event)
 {
-  // Coordonnées du click
-  var cx = event.clientX;
-  var cy = event.clientY;
+  // Coordonnées du click sur canvas
+  var rect = cs.getBoundingClientRect();
+  var cx = event.clientX - rect.left;
+  var cy = event.clientY - rect.top;
 
   for (var i=0;i<zombies.length;i++){
     var zone;
-    if (cx>(zombies[i].x - 100) && cy < (zombies[i].y + 100) && cy>(zombies[i].y - 100) && cy < (zombies[i].y + 100)){
+    if (cx>(zombies[i].x) && cx<(zombies[i].x + 100) && cy>(zombies[i].y) && cy<(zombies[i].y + 100)){
       zone = true;
     }
     else {
