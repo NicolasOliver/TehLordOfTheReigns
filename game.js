@@ -46,6 +46,8 @@ var play = function () {
 	if(loose == true) {
 		soundManager.createSound('son2','fly.wav', function () { soundManager.destroySound('son2'); });
     	soundManager.play('son2');
+    	soundManager.createSound('son3','pippin.mp3', function () { soundManager.destroySound('son3'); })
+    	soundManager.play('son3');
 	}
 
 }
