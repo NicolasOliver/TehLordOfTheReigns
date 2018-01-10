@@ -61,7 +61,7 @@ function startTimer() {
   timer = m+":"+s;
   compt++;
   time=setTimeout(startTimer, 1000);
-  
+
 }
 
 function checkSecond(sec) {
@@ -108,6 +108,8 @@ function follow(evenement)
 var goblin = {
 	grave: tower,
 	img: imgoblin,
+	name:"goblin",
+	life:1,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -148,6 +150,8 @@ var goblin = {
 var sauron = {
 	grave: tower,
 	img: imsauron,
+	name: "sauron",
+	life:25,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -188,6 +192,8 @@ var sauron = {
 var balrog = {
 	grave: tower,
 	img: imbalrog,
+	name:"balrog",
+	life:3,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -228,6 +234,8 @@ var balrog = {
 var nazgul = {
 	grave: tower,
 	img: imnazgul,
+	name:"nazgul",
+	life:2,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -271,7 +279,7 @@ function AI()
 	creation=setInterval(function() {
 		if(zombies.length==0)
 		{
-			goblin.create();	
+			goblin.create();
 			zombies.push(goblin);
 		}
 		else
@@ -281,7 +289,7 @@ function AI()
 				newgoblin.change();
 				zombies.push(newgoblin);
 			}
-			
+
 
       		if(compt>=140 && createsauron==false) {
       			var newsauron=Object.create(sauron);
@@ -374,7 +382,7 @@ function AI()
 			for(var i=0;i<zombies.length;i++)
 			{
 				zombies[i].create();
-			}	
+			}
 		}
 	},2000)
 	move=setInterval(function () {
@@ -444,7 +452,7 @@ function stop() {
 }
 
 
-// Click sur les zombies
+//Click sur les zombies
 function onclick_page(event)
 {
   // Coordonnées du click sur canvas
@@ -454,8 +462,32 @@ function onclick_page(event)
 
   for (var i=0;i<zombies.length;i++){
     var zone;
-    if (cx>(zombies[i].x) && cx<(zombies[i].x + 100) && cy>(zombies[i].y) && cy<(zombies[i].y + 100)){
+    if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 80) ) {
       zone = true;
+			zombies[i].life--;
+			if (zombies[i].life == 0){
+				console.log("Le balrog est mort!");
+			}
+			break;
+    }
+		else if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
+      zone = true;
+			zombies[i].life--;
+			if (zombies[i].life == 0){
+				console.log("Le nazgul est mort!");
+			}
+			break;
+    }
+		else if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
+      zone = true;
+			break;
+    }else if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 50) ) {
+      zone = true;
+			zombies[i].life--;
+			if (zombies[i].life == 0){
+				console.log("Le goblin est mort!");
+			}
+			break;
     }
     else {
       zone = false;
