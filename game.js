@@ -27,6 +27,9 @@ var point = 0;
 var timer=" 3:20";
 var compt = 0;
 var time;
+var createsauron=false;
+var choice;
+var sec100=false;
 
 // Variables de coordonnées
 var sx;
@@ -268,41 +271,110 @@ function AI()
 	creation=setInterval(function() {
 		if(zombies.length==0)
 		{
-			balrog.create();
-			goblin.create();
-      		sauron.create();
-      		nazgul.create();
-      		zombies.push(nazgul);
-      		zombies.push(balrog);
+			goblin.create();	
 			zombies.push(goblin);
-      		zombies.push(sauron);
 		}
 		else
 		{
-			var newgoblin=Object.create(goblin);
-			newgoblin.change();
-			newgoblin.create();
+			if(compt<=30) {
+				var newgoblin=Object.create(goblin);
+				newgoblin.change();
+				zombies.push(newgoblin);
+			}
+			
 
-      		var newsauron=Object.create(sauron);
-			newsauron.change();
-			newsauron.create();
+      		if(compt>=140 && createsauron==false) {
+      			var newsauron=Object.create(sauron);
+				newsauron.change();
+				zombies.push(newsauron);
+				createsauron=true;
+			}
 
-			var newbalrog=Object.create(balrog);
-			newbalrog.change();
-			newbalrog.create();
+			if(compt>=100) {
+				choice=Math.round(Math.random()*6);
+				switch(choice) {
+					case 0:
+						var newgoblin=Object.create(goblin);
+						newgoblin.change();
+						zombies.push(newgoblin);
+						break;
+					case 1:
+						var newnazgul=Object.create(nazgul);
+						newnazgul.change();
+						zombies.push(newnazgul);
+						break;
+					case 2:
+						var newgoblin=Object.create(goblin);
+						newgoblin.change();
+						zombies.push(newgoblin);
+						var newnazgul=Object.create(nazgul);
+						newnazgul.change();
+						zombies.push(newnazgul);
+						break;
+					case 3:
+						var newbalrog=Object.create(balrog);
+						newbalrog.change();
+						zombies.push(newbalrog);
+						break;
+					case 4:
+						var newnazgul=Object.create(nazgul);
+						newnazgul.change();
+						zombies.push(newnazgul);
+						var newbalrog=Object.create(balrog);
+						newbalrog.change();
+						zombies.push(newbalrog);
+						break;
+					case 5:
+						var newgoblin=Object.create(goblin);
+						newgoblin.change();
+						zombies.push(newgoblin);
+						var newbalrog=Object.create(balrog);
+						newbalrog.change();
+						zombies.push(newbalrog);
+						break;
+					case 6:
+						var newgoblin=Object.create(goblin);
+						newgoblin.change();
+						zombies.push(newgoblin);
+						var newbalrog=Object.create(balrog);
+						newbalrog.change();
+						zombies.push(newbalrog);
+						var newnazgul=Object.create(nazgul);
+						newnazgul.change();
+						zombies.push(newnazgul);
+						break;
+				}
+			}
 
-			var newnazgul=Object.create(nazgul);
-			newnazgul.change();
-			newnazgul.create();
+			if(compt>=30 && sec100==false) {
+				if(compt==100) { sec100=true; }
+				choice=Math.round(Math.random()*2);
+				switch(choice) {
+					case 0:
+						var newgoblin=Object.create(goblin);
+						newgoblin.change();
+						zombies.push(newgoblin);
+						break;
+					case 1:
+						var newnazgul=Object.create(nazgul);
+						newnazgul.change();
+						zombies.push(newnazgul);
+						break;
+					case 2:
+						var newgoblin=Object.create(goblin);
+						newgoblin.change();
+						zombies.push(newgoblin);
+						var newnazgul=Object.create(nazgul);
+						newnazgul.change();
+						zombies.push(newnazgul);
+						break;
+				}
+			}
 
 			for(var i=0;i<zombies.length;i++)
 			{
 				zombies[i].create();
-			}
-			zombies.push(newgoblin);
-      		zombies.push(newsauron);
-      		zombies.push(newbalrog);
-      		zombies.push(newnazgul);
+			}	
 		}
 	},2000)
 	move=setInterval(function () {
