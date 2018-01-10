@@ -30,6 +30,7 @@ var time;
 var createsauron=false;
 var choice;
 var sec100=false;
+var notsauron=false;
 
 // Variables de coordonnées
 var sx;
@@ -39,15 +40,40 @@ var y;
 
 // Fonction qui joue une musique au lancement de la page
 var play = function () {
-	if(loose == false) {
+	if(loose == false && win == false && createsauron == false && notsauron == false) {
 		soundManager.createSound('son','shallnotpass.wav', function () { soundManager.destroySound('son'); });
     	soundManager.play('son');
+    	if(pause == true) {
+    		soundManager.pause('son');
+    	}
+    	else {
+    		soundManager.resume('son');
+    	}
+    	notsauron = true;
 	}
 	if(loose == true) {
+		notsauron=false;
+		createsauron=false;
+		soundManager.stop('son6');
 		soundManager.createSound('son2','fly.wav', function () { soundManager.destroySound('son2'); });
     	soundManager.play('son2');
     	soundManager.createSound('son3','pippin.mp3', function () { soundManager.destroySound('son3'); })
     	soundManager.play('son3');
+	}
+	if(win == true) {
+		notsauron=false;
+		createsauron=false;
+		soundManager.createSound('son4','thefellowship.mp3', function () { soundManager.destroySound('son4'); });
+    	soundManager.play('son4');
+	}
+	if(createsauron == true) {
+		notsauron=false;
+		soundManager.createSound('son5','Sauron.mp3', function () { soundManager.destroySound('son5'); });
+    	soundManager.play('son5');
+	}
+	if(notsauron == true && win == false && loose == false) {
+		soundManager.createSound('son6','Isengard.mp3', function () { soundManager.destroySound('son6'); });
+    	soundManager.play('son6');
 	}
 
 }
@@ -298,6 +324,7 @@ function AI()
 				newsauron.change();
 				zombies.push(newsauron);
 				createsauron=true;
+				play();
 			}
 
 			if(compt>=100) {
@@ -423,6 +450,7 @@ function AI()
 					window.location.reload();
 				}
 			}
+			play();
 		}
 	},100)
 }
