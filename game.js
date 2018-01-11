@@ -20,7 +20,7 @@ var zombies = new Array();
 var creation;
 var move;
 var pause = false;
-var life = 10;
+var life = 1000;
 var loose = false;
 var win = false;
 var point = 0;
@@ -31,6 +31,8 @@ var createsauron=false;
 var choice;
 var sec100=false;
 var notsauron=false;
+var music;
+var music2=true;
 
 // Variables de coordonnées
 var sx;
@@ -38,20 +40,22 @@ var sy;
 var x;
 var y;
 
-// Fonction qui joue une musique au lancement de la page
+// Fonction qui gère les musiques tout au long de la partie
 var play = function () {
 	if(loose == false && win == false && createsauron == false && notsauron == false) {
-		soundManager.createSound('son','shallnotpass.wav', function () { soundManager.destroySound('son'); });
+		soundManager.createSound('son','shallnotpass.wav', function () { soundManager.destroySound('son');});
     	soundManager.play('son');
-    	if(pause == true) {
-    		soundManager.pause('son');
-    	}
-    	else {
-    		soundManager.resume('son');
-    	}
     	notsauron = true;
+    	music = true;
 	}
-	if(loose == true) {
+	if(pause == true) {
+		music=false;
+		soundManager.pauseAll();
+	}
+	if(pause == false) {
+		soundManager.resumeAll();
+	}
+	if(loose == true && pause==false) {
 		notsauron=false;
 		createsauron=false;
 		soundManager.stop('son6');
@@ -60,18 +64,18 @@ var play = function () {
     	soundManager.createSound('son3','pippin.mp3', function () { soundManager.destroySound('son3'); })
     	soundManager.play('son3');
 	}
-	if(win == true) {
+	if(win == true && pause==false) {
 		notsauron=false;
 		createsauron=false;
 		soundManager.createSound('son4','thefellowship.mp3', function () { soundManager.destroySound('son4'); });
     	soundManager.play('son4');
 	}
-	if(createsauron == true) {
+	if(createsauron == true && pause==false && music2 == true) {
 		notsauron=false;
 		soundManager.createSound('son5','Sauron.mp3', function () { soundManager.destroySound('son5'); });
     	soundManager.play('son5');
 	}
-	if(notsauron == true && win == false && loose == false) {
+	if(notsauron == true && win == false && loose == false && pause==false && music == true) {
 		soundManager.createSound('son6','Isengard.mp3', function () { soundManager.destroySound('son6'); });
     	soundManager.play('son6');
 	}
@@ -325,6 +329,7 @@ function AI()
 				zombies.push(newsauron);
 				createsauron=true;
 				play();
+				music2=false;
 			}
 
 			if(compt>=100) {
@@ -416,7 +421,7 @@ function AI()
 	},2000)
 	move=setInterval(function () {
 		if(compt != 200) {
-			if(life>0 && life <=10)
+			if(life>0 && life <=1000)
 			{
 				for(var i=0;i<zombies.length;i++)
 				{
@@ -466,6 +471,7 @@ function stop() {
 				clearInterval(move);
 				clearTimeout(time);
 				pause=true;
+				play();
 				document.getElementById("pause").style.display = "block";
 				document.getElementById("cv").style.webkitFilter = "blur(3px)"
 			}
@@ -476,6 +482,7 @@ function stop() {
 				AI();
 				time=setTimeout(startTimer,1000);
 				pause=false;
+				play();
 			}
 		}
 	}
