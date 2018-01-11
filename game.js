@@ -140,10 +140,14 @@ function follow(evenement)
 }
 
 var goblin = {
+	time: 0,
+	born: false,
 	grave: towerIsengard,
 	img: imgoblin,
 	name:"goblin",
 	life:1,
+	tx: 0,
+	ty: 0,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -151,12 +155,24 @@ var goblin = {
 	change: function() {
 		this.x=Math.round(Math.random()*601);
 		this.y=Math.round(Math.random()*101);
-	},
-	tower: function() {
-		ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-20,32,32);
+		this.tx=0;
+		this.ty=0;
+		this.born=false;
+		this.time=0;
 	},
 	create: function() {
+		if(this.born==false) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-70,70,90);
+			this.tx=this.x;
+			this.ty=this.y-70;
+		}
+		if(this.born==true && this.time!=100) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,230,307,this.tx,this.ty,70,90);
+		}
 		ctx.drawImage(this.img,this.sx,this.sy,32,32,this.x,this.y,32,32);
+		this.born=true;
 	},
 	move: function() {
 		this.sx=this.sx+32;
@@ -182,23 +198,31 @@ var goblin = {
 }
 
 var sauron = {
+	time: 0,
+	born: false,
 	grave: towerSauron,
 	img: imsauron,
 	name: "sauron",
 	life:25,
+	tx: 0,
+	ty: 0,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
 	sy: 0,
-	change: function() {
-		this.x=Math.round(Math.random()*601);
-		this.y=Math.round(Math.random()*101);
-	},
-	tower: function() {
-		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
-	},
 	create: function() {
+		if(this.born==false) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-70,50,90);
+			this.tx=this.x;
+			this.ty=this.y-70;
+		}
+		if(this.born==true && this.time!=100) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,244,563,this.tx,this.ty,50,90);
+		}
 		ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+		this.born=true;
 	},
 	move: function() {
 		this.sx=this.sx+127;
@@ -224,10 +248,14 @@ var sauron = {
 }
 
 var balrog = {
+	time: 0,
+	born: false,
 	grave: towerIsengard,
 	img: imbalrog,
 	name:"balrog",
 	life:3,
+	tx: 0,
+	ty: 0,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -235,12 +263,24 @@ var balrog = {
 	change: function() {
 		this.x=Math.round(Math.random()*601);
 		this.y=Math.round(Math.random()*101);
-	},
-	tower: function() {
-		ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-20,32,32);
+		this.tx=0;
+		this.ty=0;
+		this.born=false;
+		this.time=0;
 	},
 	create: function() {
+		if(this.born==false) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-70,70,90);
+			this.tx=this.x;
+			this.ty=this.y-70;
+		}
+		if(this.born==true && this.time!=100) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,230,307,this.tx,this.ty,70,90);
+		}
 		ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
+		this.born=true;
 	},
 	move: function() {
 		this.sx=this.sx+129;
@@ -266,10 +306,14 @@ var balrog = {
 }
 
 var nazgul = {
+	time: 0,
+	born: false,
 	grave: towerIsengard,
 	img: imnazgul,
 	name:"nazgul",
 	life:2,
+	tx: 0,
+	ty: 0,
 	x: Math.round(Math.random()*601),
 	y: Math.round(Math.random()*101),
 	sx: 0,
@@ -277,12 +321,24 @@ var nazgul = {
 	change: function() {
 		this.x=Math.round(Math.random()*601);
 		this.y=Math.round(Math.random()*101);
-	},
-	tower: function() {
-		ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-20,32,32);
+		this.tx=0;
+		this.ty=0;
+		this.born=false;
+		this.time=0;
 	},
 	create: function() {
+		if(this.born==false) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-70,70,90);
+			this.tx=this.x;
+			this.ty=this.y-70;
+		}
+		if(this.born==true && this.time!=100) {
+			this.time++;
+			ctx.drawImage(this.grave,0,0,230,307,this.tx,this.ty,70,90);
+		}
 		ctx.drawImage(this.img,this.sx,this.sy,160,195,this.x,this.y,100,100);
+		this.born=true;
 	},
 	move: function() {
 		this.sx=this.sx+160;
@@ -327,7 +383,6 @@ function AI()
 
       		if(compt>=140 && createsauron==false) {
       			var newsauron=Object.create(sauron);
-				newsauron.change();
 				zombies.push(newsauron);
 				createsauron=true;
 				//play();
@@ -546,10 +601,10 @@ function game()
 {
 	drawGround();
 	startTimer();
-	//play();
-	document.onmousemove = follow;
 	stop();
 	AI();
+	//play();
+	document.onmousemove = follow;
 	onclick_page();
 }
 
