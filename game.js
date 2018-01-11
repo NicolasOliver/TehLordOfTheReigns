@@ -14,8 +14,10 @@ var imnazgul = new Image();
 imnazgul.src="Nazgul.png";
 soundManager.url='soundmanager2.swf';
 soundManager.debugMode=false;
-var tower = new Image();
-tower.src="tower.png";
+var towerIsengard = new Image();
+towerIsengard.src="towerIsengard.png";
+var towerSauron = new Image();
+towerSauron.src="towerSauron.png";
 var zombies = new Array();
 var creation;
 var move;
@@ -138,7 +140,7 @@ function follow(evenement)
 }
 
 var goblin = {
-	grave: tower,
+	grave: towerIsengard,
 	img: imgoblin,
 	name:"goblin",
 	life:1,
@@ -151,7 +153,7 @@ var goblin = {
 		this.y=Math.round(Math.random()*101);
 	},
 	tower: function() {
-		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
+		ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-20,32,32);
 	},
 	create: function() {
 		ctx.drawImage(this.img,this.sx,this.sy,32,32,this.x,this.y,32,32);
@@ -180,7 +182,7 @@ var goblin = {
 }
 
 var sauron = {
-	grave: tower,
+	grave: towerSauron,
 	img: imsauron,
 	name: "sauron",
 	life:25,
@@ -222,7 +224,7 @@ var sauron = {
 }
 
 var balrog = {
-	grave: tower,
+	grave: towerIsengard,
 	img: imbalrog,
 	name:"balrog",
 	life:3,
@@ -235,7 +237,7 @@ var balrog = {
 		this.y=Math.round(Math.random()*101);
 	},
 	tower: function() {
-		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
+		ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-20,32,32);
 	},
 	create: function() {
 		ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
@@ -264,7 +266,7 @@ var balrog = {
 }
 
 var nazgul = {
-	grave: tower,
+	grave: towerIsengard,
 	img: imnazgul,
 	name:"nazgul",
 	life:2,
@@ -277,7 +279,7 @@ var nazgul = {
 		this.y=Math.round(Math.random()*101);
 	},
 	tower: function() {
-		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
+		ctx.drawImage(this.grave,0,0,230,307,this.x,this.y-20,32,32);
 	},
 	create: function() {
 		ctx.drawImage(this.img,this.sx,this.sy,160,195,this.x,this.y,100,100);
