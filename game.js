@@ -20,7 +20,7 @@ var zombies = new Array();
 var creation;
 var move;
 var pause = false;
-var life = 1000;
+var life = 10;
 var loose = false;
 var win = false;
 var point = 0;
@@ -196,7 +196,7 @@ var sauron = {
 		ctx.drawImage(this.grave,0,0,244,563,this.x,this.y-20,32,32);
 	},
 	create: function() {
-		ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,50,100);
+		ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
 	},
 	move: function() {
 		this.sx=this.sx+127;
@@ -328,7 +328,7 @@ function AI()
 				newsauron.change();
 				zombies.push(newsauron);
 				createsauron=true;
-				play();
+				//play();
 				music2=false;
 			}
 
@@ -421,7 +421,7 @@ function AI()
 	},2000)
 	move=setInterval(function () {
 		if(compt != 200) {
-			if(life>0 && life <=1000)
+			if(life>0 && life <=10)
 			{
 				for(var i=0;i<zombies.length;i++)
 				{
@@ -440,7 +440,7 @@ function AI()
 						window.location.reload();
 					}
 				}
-				play();
+				//play();
 			}
 		}
 		else {
@@ -455,7 +455,7 @@ function AI()
 					window.location.reload();
 				}
 			}
-			play();
+			//play();
 		}
 	},100)
 }
@@ -471,7 +471,7 @@ function stop() {
 				clearInterval(move);
 				clearTimeout(time);
 				pause=true;
-				play();
+				//play();
 				document.getElementById("pause").style.display = "block";
 				document.getElementById("cv").style.webkitFilter = "blur(3px)"
 			}
@@ -482,7 +482,7 @@ function stop() {
 				AI();
 				time=setTimeout(startTimer,1000);
 				pause=false;
-				play();
+				//play();
 			}
 		}
 	}
@@ -544,7 +544,7 @@ function game()
 {
 	drawGround();
 	startTimer();
-	play();
+	//play();
 	document.onmousemove = follow;
 	stop();
 	AI();
