@@ -20,6 +20,54 @@ var BarreVerteBalrog = new Image();
 BarreVerteBalrog.src="BarreVerteBalrog.png";
 var BarreOrangeBalrog = new Image();
 BarreOrangeBalrog.src="BarreOrangeBalrog.png";
+var BarreOrangeSauron1 = new Image();
+BarreOrangeSauron1.src="BarreOrangeSauron1.png";
+var BarreOrangeSauron2 = new Image();
+BarreOrangeSauron2.src="BarreOrangeSauron2.png";
+var BarreOrangeSauron3 = new Image();
+BarreOrangeSauron3.src="BarreOrangeSauron3.png";
+var BarreOrangeSauron4 = new Image();
+BarreOrangeSauron4.src="BarreOrangeSauron4.png";
+var BarreOrangeSauron5 = new Image();
+BarreOrangeSauron5.src="BarreOrangeSauron5.png";
+var BarreOrangeSauron6 = new Image();
+BarreOrangeSauron6.src="BarreOrangeSauron6.png";
+var BarreOrangeSauron7 = new Image();
+BarreOrangeSauron7.src="BarreOrangeSauron7.png";
+var BarreOrangeSauron8 = new Image();
+BarreOrangeSauron8.src="BarreOrangeSauron8.png";
+var BarreOrangeSauron9 = new Image();
+BarreOrangeSauron9.src="BarreOrangeSauron9.png";
+var BarreOrangeSauron10 = new Image();
+BarreOrangeSauron10.src="BarreOrangeSauron10.png";
+var BarreOrangeSauron11 = new Image();
+BarreOrangeSauron11.src="BarreOrangeSauron11.png";
+var BarreOrangeSauron12 = new Image();
+BarreOrangeSauron12.src="BarreOrangeSauron12.png";
+var BarreOrangeSauron13 = new Image();
+BarreOrangeSauron13.src="BarreOrangeSauron13.png";
+var BarreRougeSauron1 = new Image();
+BarreRougeSauron1.src="BarreRougeSauron1.png";
+var BarreRougeSauron2 = new Image();
+BarreRougeSauron2.src="BarreRougeSauron2.png";
+var BarreRougeSauron3 = new Image();
+BarreRougeSauron3.src="BarreRougeSauron3.png";
+var BarreRougeSauron4 = new Image();
+BarreRougeSauron4.src="BarreRougeSauron4.png";
+var BarreRougeSauron5 = new Image();
+BarreRougeSauron5.src="BarreRougeSauron5.png";
+var BarreRougeSauron6 = new Image();
+BarreRougeSauron6.src="BarreRougeSauron6.png";
+var BarreRougeSauron7 = new Image();
+BarreRougeSauron7.src="BarreRougeSauron7.png";
+var BarreRougeSauron8 = new Image();
+BarreRougeSauron8.src="BarreRougeSauron8.png";
+var BarreRougeSauron9 = new Image();
+BarreRougeSauron9.src="BarreRougeSauron9.png";
+var BarreRougeSauron10 = new Image();
+BarreRougeSauron10.src="BarreRougeSauron10.png";
+var BarreRougeSauron11 = new Image();
+BarreRougeSauron11.src="BarreRougeSauron11.png";
 soundManager.url='soundmanager2.swf';
 soundManager.debugMode=false;
 var towerIsengard = new Image();
@@ -130,7 +178,7 @@ var drawGround = function ()
     ctx.fillText("'p' : pause",5,15);
     ctx.fillText("Life :"+life,270,15);
     ctx.fillText("Timer :"+timer,500,15);
-    ctx.fillText("Point :"+point,535,785);
+    ctx.fillText("Point :"+point,515,785);
 }
 
 // Fonction pour faire suivre un élement au déplacement de la souris
@@ -217,6 +265,10 @@ var sauron = {
 	img: imsauron,
 	name: "sauron",
 	lifesauron:25,
+	lifeBarSauron:Array(BarreVerte,BarreOrangeSauron1,BarreOrangeSauron2,BarreOrangeSauron3,BarreOrangeSauron4,
+		BarreOrangeSauron5,BarreOrangeSauron6,BarreOrangeSauron7,BarreOrangeSauron8,BarreOrangeSauron9,BarreOrangeSauron10,
+		BarreOrangeSauron11,BarreOrangeSauron12,BarreOrangeSauron13,BarreRougeSauron1,BarreRougeSauron2,BarreRougeSauron3,
+		BarreRougeSauron4,BarreRougeSauron5,BarreRougeSauron6,BarreRougeSauron7,BarreRougeSauron8,BarreRougeSauron9,BarreRougeSauron10,BarreRougeSauron11),
 	tx: 0,
 	ty: 0,
 	x: Math.round(Math.random()*601),
@@ -233,6 +285,81 @@ var sauron = {
 		if(this.born==true && this.time!=100) {
 			this.time++;
 			ctx.drawImage(this.grave,0,0,244,563,this.tx,this.ty,50,90);
+		}
+		if(this.lifesauron == 25){
+			ctx.drawImage(this.lifeBarSauron[0],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 24){
+			ctx.drawImage(this.lifeBarSauron[1],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 23){
+			ctx.drawImage(this.lifeBarSauron[2],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 22){
+			ctx.drawImage(this.lifeBarSauron[3],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 21){
+			ctx.drawImage(this.lifeBarSauron[4],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 20){
+			ctx.drawImage(this.lifeBarSauron[5],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 19){
+			ctx.drawImage(this.lifeBarSauron[6],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 18){
+			ctx.drawImage(this.lifeBarSauron[7],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 17){
+			ctx.drawImage(this.lifeBarSauron[8],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 16){
+			ctx.drawImage(this.lifeBarSauron[9],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 15){
+			ctx.drawImage(this.lifeBarSauron[10],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 14){
+			ctx.drawImage(this.lifeBarSauron[11],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 13){
+			ctx.drawImage(this.lifeBarSauron[12],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 12){
+			ctx.drawImage(this.lifeBarSauron[13],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 11){
+			ctx.drawImage(this.lifeBarSauron[14],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 10){
+			ctx.drawImage(this.lifeBarSauron[15],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 9){
+			ctx.drawImage(this.lifeBarSauron[16],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 8){
+			ctx.drawImage(this.lifeBarSauron[17],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 7){
+			ctx.drawImage(this.lifeBarSauron[18],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 6){
+			ctx.drawImage(this.lifeBarSauron[19],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 5){
+			ctx.drawImage(this.lifeBarSauron[20],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 4){
+			ctx.drawImage(this.lifeBarSauron[21],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 3){
+			ctx.drawImage(this.lifeBarSauron[22],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 2){
+			ctx.drawImage(this.lifeBarSauron[23],0,0,482,195,this.x+5,this.y-2,70,20);
+		}
+		if(this.lifesauron == 1){
+			ctx.drawImage(this.lifeBarSauron[24],0,0,482,195,this.x+5,this.y-2,70,20);
 		}
 		ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
 		this.born=true;
@@ -411,8 +538,8 @@ function AI()
 			}
 
 
-      		if(compt>=140 && createsauron==false) {
-      			var newsauron=Object.create(sauron);
+  		if(compt>=5 && createsauron==false) {
+  			var newsauron=Object.create(sauron);
 				zombies.push(newsauron);
 				createsauron=true;
 				play();
@@ -602,8 +729,14 @@ function onclick_page(event)
 				break;
 			}
     }
-		if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
-    }
+		if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 60) && cy>(zombies[i].y) && cy<(zombies[i].y + 150) ) {
+			zombies[i].lifesauron--;
+			if (zombies[i].lifesauron == 0){
+				zombies.splice(i,1);
+				point+=30;
+				break;
+			}
+		}
 		if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 50) ) {
 			zombies[i].lifegoblin--;
 			if (zombies[i].lifegoblin == 0){
