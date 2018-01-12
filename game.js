@@ -12,6 +12,10 @@ var imbalrog= new Image();
 imbalrog.src="balrog.png";
 var imnazgul = new Image();
 imnazgul.src="Nazgul.png";
+var BarreVerte = new Image();
+BarreVerte.src="BarreVerte.png";
+var BarreOrangeNazgul = new Image();
+BarreOrangeNazgul.src="BarreOrangeNazgul.png";
 soundManager.url='soundmanager2.swf';
 soundManager.debugMode=false;
 var towerIsengard = new Image();
@@ -145,7 +149,8 @@ var goblin = {
 	grave: towerIsengard,
 	img: imgoblin,
 	name:"goblin",
-	life:1,
+	lifegoblin:1,
+	lifeBarGobelin:Array(BarreVerte),
 	tx: 0,
 	ty: 0,
 	x: Math.round(Math.random()*601),
@@ -171,6 +176,7 @@ var goblin = {
 			this.time++;
 			ctx.drawImage(this.grave,0,0,230,307,this.tx,this.ty,70,90);
 		}
+		ctx.drawImage(this.lifeBarGobelin[0],0,0,482,195,this.x-7,this.y-10,50,20);
 		ctx.drawImage(this.img,this.sx,this.sy,32,32,this.x,this.y,32,32);
 		this.born=true;
 	},
@@ -203,7 +209,7 @@ var sauron = {
 	grave: towerSauron,
 	img: imsauron,
 	name: "sauron",
-	life:25,
+	lifesauron:25,
 	tx: 0,
 	ty: 0,
 	x: Math.round(Math.random()*601),
@@ -253,7 +259,7 @@ var balrog = {
 	grave: towerIsengard,
 	img: imbalrog,
 	name:"balrog",
-	life:3,
+	lifebalrog:3,
 	tx: 0,
 	ty: 0,
 	x: Math.round(Math.random()*601),
@@ -311,7 +317,8 @@ var nazgul = {
 	grave: towerIsengard,
 	img: imnazgul,
 	name:"nazgul",
-	life:2,
+	lifenazgul:2,
+	lifeBarNazgul:Array(BarreVerte,BarreVerte),
 	tx: 0,
 	ty: 0,
 	x: Math.round(Math.random()*601),
@@ -553,47 +560,37 @@ function onclick_page(event)
   var rect = cs.getBoundingClientRect();
   var cx = event.clientX - rect.left;
   var cy = event.clientY - rect.top;
+	var i=0;
 
-  for (var i=0;i<zombies.length;i++){
-    var zone;
+  while (true){
     if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 80) ) {
-      zone = true;
 			zombies[i].life--;
 			if (zombies[i].life == 0){
-				console.log("Le balrog est mort!");
+				zombies.splice(i,1);
+				point+=5;
+				break;
 			}
-			break;
     }
-		else if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
-      zone = true;
-			zombies[i].life--;
-			if (zombies[i].life == 0){
-				console.log("Le nazgul est mort!");
+	  if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
+			zombies[i].lifenazgul--;
+			if (zombies[i].lifenazgul == 0){
+				zombies.splice(i,1);
+				point+=3;
+				break;
 			}
-			break;
     }
-		else if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
-      zone = true;
-			break;
-    }else if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 50) ) {
-      zone = true;
-			zombies[i].life--;
-			if (zombies[i].life == 0){
-				console.log("Le goblin est mort!");
+		if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
+    }
+		if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 50) ) {
+			zombies[i].lifegoblin--;
+			if (zombies[i].lifegoblin == 0){
+				zombies.splice(i,1);
+				point++;
+				break;
 			}
-			break;
     }
-    else {
-      zone = false;
-    }
+		i++
   }
-  if(zone == true) {
-    console.log("Sur un zombie");
-  }
-  else{
-    console.log("en dehors");
-  }
-
 }
 
 // Fonction principale du jeu
