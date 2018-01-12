@@ -241,7 +241,7 @@ var goblin = {
 		{
 			this.sx=0;
 		}
-		this.y=this.y+10;
+		this.y=this.y+8;
 		drawGround();
 		for(var i=0;i<zombies.length;i++)
 		{
@@ -370,7 +370,7 @@ var sauron = {
 		{
 			this.sx=0;
 		}
-		this.y=this.y+2;
+		this.y=this.y+3;
 		drawGround();
 		for(var i=0;i<zombies.length;i++)
 		{
@@ -712,24 +712,29 @@ function onclick_page(event)
   var cy = event.clientY - rect.top;
   var i=0;
 
-  while (true){
-    if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 80) ) {
+  if(pause == false) {
+  	while (true)
+  	{
+	    if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 80)) 
+	    {
 			zombies[i].lifebalrog--;
 			if (zombies[i].lifebalrog == 0){
 				zombies.splice(i,1);
 				point+=5;
 				break;
 			}
-    }
-	  if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100) ) {
+	    }
+		if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100)) 
+		{
 			zombies[i].lifenazgul--;
 			if (zombies[i].lifenazgul == 0){
 				zombies.splice(i,1);
 				point+=3;
 				break;
 			}
-    }
-		if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 60) && cy>(zombies[i].y) && cy<(zombies[i].y + 150) ) {
+	    }
+		if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 60) && cy>(zombies[i].y) && cy<(zombies[i].y + 150)) 
+		{
 			zombies[i].lifesauron--;
 			if (zombies[i].lifesauron == 0){
 				zombies.splice(i,1);
@@ -737,15 +742,17 @@ function onclick_page(event)
 				break;
 			}
 		}
-		if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 50) ) {
+		if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 50)) 
+		{
 			zombies[i].lifegoblin--;
 			if (zombies[i].lifegoblin == 0){
 				zombies.splice(i,1);
 				point++;
 				break;
 			}
-    }
+	    }
 		i++
+  	}
   }
 }
 
