@@ -208,12 +208,12 @@ var goblin = {
 	lifeBarGobelin:Array(BarreVerte),
 	tx: 0,
 	ty: 0,
-	x: Math.round(Math.random()*601),
+	x: Math.round(Math.random()*569),
 	y: Math.round(Math.random()*101),
 	sx: 0,
 	sy: 0,
 	change: function() {
-		this.x=Math.round(Math.random()*601);
+		this.x=Math.round(Math.random()*569);
 		this.y=Math.round(Math.random()*101);
 		this.tx=0;
 		this.ty=0;
@@ -252,7 +252,7 @@ var goblin = {
 			else
 			{
 				zombies.splice(i,1);
-				life=life;
+				life=life-1;
 			}
 		}
 	}
@@ -271,7 +271,7 @@ var sauron = {
 		BarreRougeSauron4,BarreRougeSauron5,BarreRougeSauron6,BarreRougeSauron7,BarreRougeSauron8,BarreRougeSauron9,BarreRougeSauron10,BarreRougeSauron11),
 	tx: 0,
 	ty: 0,
-	x: Math.round(Math.random()*601),
+	x: Math.round(Math.random()*551),
 	y: Math.round(Math.random()*101),
 	sx: 0,
 	sy: 0,
@@ -397,12 +397,12 @@ var balrog = {
 	lifeBarBalrog:Array(BarreVerte,BarreVerteBalrog,BarreOrangeBalrog),
 	tx: 0,
 	ty: 0,
-	x: Math.round(Math.random()*601),
+	x: Math.round(Math.random()*531),
 	y: Math.round(Math.random()*101),
 	sx: 0,
 	sy: 0,
 	change: function() {
-		this.x=Math.round(Math.random()*601);
+		this.x=Math.round(Math.random()*531);
 		this.y=Math.round(Math.random()*101);
 		this.tx=0;
 		this.ty=0;
@@ -465,12 +465,12 @@ var nazgul = {
 	lifeBarNazgul:Array(BarreVerte,BarreOrangeNazgul),
 	tx: 0,
 	ty: 0,
-	x: Math.round(Math.random()*601),
+	x: Math.round(Math.random()*531),
 	y: Math.round(Math.random()*101),
 	sx: 0,
 	sy: 0,
 	change: function() {
-		this.x=Math.round(Math.random()*601);
+		this.x=Math.round(Math.random()*531);
 		this.y=Math.round(Math.random()*101);
 		this.tx=0;
 		this.ty=0;
@@ -538,7 +538,7 @@ function AI()
 			}
 
 
-  		if(compt>=5 && createsauron==false) {
+  		if(compt>=140 && createsauron==false) {
   			var newsauron=Object.create(sauron);
 				zombies.push(newsauron);
 				createsauron=true;
@@ -546,7 +546,7 @@ function AI()
 				music2=false;
 			}
 
-			if(compt>=10) {
+			if(compt>=100) {
 				choice=Math.round(Math.random()*6);
 				switch(choice) {
 					case 0:
