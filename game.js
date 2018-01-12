@@ -16,6 +16,10 @@ var BarreVerte = new Image();
 BarreVerte.src="BarreVerte.png";
 var BarreOrangeNazgul = new Image();
 BarreOrangeNazgul.src="BarreOrangeNazgul.png";
+var BarreVerteBalrog = new Image();
+BarreVerteBalrog.src="BarreVerteBalrog.png";
+var BarreOrangeBalrog = new Image();
+BarreOrangeBalrog.src="BarreOrangeBalrog.png";
 soundManager.url='soundmanager2.swf';
 soundManager.debugMode=false;
 var towerIsengard = new Image();
@@ -197,7 +201,7 @@ var goblin = {
 			else
 			{
 				zombies.splice(i,1);
-				life=life-1;
+				life=life;
 			}
 		}
 	}
@@ -260,6 +264,7 @@ var balrog = {
 	img: imbalrog,
 	name:"balrog",
 	lifebalrog:3,
+	lifeBarBalrog:Array(BarreVerte,BarreVerteBalrog,BarreOrangeBalrog),
 	tx: 0,
 	ty: 0,
 	x: Math.round(Math.random()*601),
@@ -284,6 +289,15 @@ var balrog = {
 		if(this.born==true && this.time!=100) {
 			this.time++;
 			ctx.drawImage(this.grave,0,0,230,307,this.tx,this.ty,70,90);
+		}
+		if(this.lifebalrog == 3){
+			ctx.drawImage(this.lifeBarBalrog[0],0,0,482,195,this.x+15,this.y-2,70,20);
+		}
+		if(this.lifebalrog == 2){
+			ctx.drawImage(this.lifeBarBalrog[1],0,0,482,195,this.x+15,this.y-2,70,20);
+		}
+		if (this.lifebalrog == 1){
+			ctx.drawImage(this.lifeBarBalrog[2],0,0,482,195,this.x+15,this.y-2,70,20);
 		}
 		ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
 		this.born=true;
@@ -344,6 +358,12 @@ var nazgul = {
 			this.time++;
 			ctx.drawImage(this.grave,0,0,230,307,this.tx,this.ty,70,90);
 		}
+		if(this.lifenazgul == 2){
+			ctx.drawImage(this.lifeBarNazgul[0],0,0,482,195,this.x+5,this.y-5,70,20);
+		}
+		else {
+			ctx.drawImage(this.lifeBarNazgul[1],0,0,482,195,this.x+5,this.y-5,70,20);
+		}
 		ctx.drawImage(this.img,this.sx,this.sy,160,195,this.x,this.y,100,100);
 		this.born=true;
 	},
@@ -396,7 +416,7 @@ function AI()
 				music2=false;
 			}
 
-			if(compt>=100) {
+			if(compt>=10) {
 				choice=Math.round(Math.random()*6);
 				switch(choice) {
 					case 0:
@@ -564,8 +584,8 @@ function onclick_page(event)
 
   while (true){
     if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 80) ) {
-			zombies[i].life--;
-			if (zombies[i].life == 0){
+			zombies[i].lifebalrog--;
+			if (zombies[i].lifebalrog == 0){
 				zombies.splice(i,1);
 				point+=5;
 				break;
