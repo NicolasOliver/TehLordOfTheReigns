@@ -61,8 +61,11 @@ var play = function () {
 	if(pause == true) {
 		music=false;
 		soundManager.pauseAll();
+		soundManager.createSound('son7','elevator.mp3', function () { soundManager.destroySound('son7');});
+    	soundManager.play('son7');
 	}
 	if(pause == false) {
+		soundManager.stop('son7');
 		soundManager.resumeAll();
 	}
 	if(loose == true && pause==false) {
@@ -412,7 +415,7 @@ function AI()
       			var newsauron=Object.create(sauron);
 				zombies.push(newsauron);
 				createsauron=true;
-				//play();
+				play();
 				music2=false;
 			}
 
@@ -524,7 +527,7 @@ function AI()
 						window.location.reload();
 					}
 				}
-				//play();
+				play();
 			}
 		}
 		else {
@@ -539,7 +542,7 @@ function AI()
 					window.location.reload();
 				}
 			}
-			//play();
+			play();
 		}
 	},100)
 }
@@ -555,7 +558,7 @@ function stop() {
 				clearInterval(move);
 				clearTimeout(time);
 				pause=true;
-				//play();
+				play();
 				document.getElementById("pause").style.display = "block";
 				document.getElementById("cv").style.webkitFilter = "blur(3px)"
 			}
@@ -566,7 +569,7 @@ function stop() {
 				AI();
 				time=setTimeout(startTimer,1000);
 				pause=false;
-				//play();
+				play();
 			}
 		}
 	}
@@ -620,7 +623,7 @@ function game()
 	startTimer();
 	stop();
 	AI();
-	//play();
+	play();
 	document.onmousemove = follow;
 	onclick_page();
 }
