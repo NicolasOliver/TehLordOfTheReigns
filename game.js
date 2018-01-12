@@ -92,8 +92,10 @@ soundManager.debugMode=false;
 //===================== Variables de "décision" =====================//
 
 var zombies = new Array(); //Pour stocker chaque zombie crée et ainsi gérer un refresh
-var creation; //Pour stopper et reprendre le setInterval de la création
+var creation; //Pour stopper et reprendre le setInterval de la création au bout de deux secondes
+var creation2; //Pour stopper et reprendre le setInterval de la création au bout d'une seconde
 var move; //Pour stopper et reprendre le setInterval du mouvement vers le bas
+var move2; //Pour stopper et reprendre le setInterval du mouvement vers le bas 
 var pause = false; //Variable qui sert à savoir si on est en pause
 var life = 10; //Variable de vie pour l'utilisateur
 var loose = false; //Variable pour savoir si on a perdu
@@ -138,7 +140,7 @@ var play = function () {
 	if(loose == true && pause==false) { //Si on perd
 		notsauron=false;
 		createsauron=false;
-		soundManager.stop('son6');
+		soundManager.stopAll();
 		soundManager.createSound('son2','fly.wav', function () { soundManager.destroySound('son2'); });
     	soundManager.play('son2');
     	soundManager.createSound('son3','pippin.mp3', function () { soundManager.destroySound('son3'); })
@@ -267,7 +269,7 @@ var goblin = {
 		{
 			this.sx=0;
 		}
-		this.y=this.y+8; //Vitesse du personnage
+		this.y=this.y+10; //Vitesse du personnage
 		drawGround();
 		for(var i=0;i<zombies.length;i++)
 		{
@@ -555,22 +557,22 @@ var nazgul = {
 	}
 }
 
-/////////////////////////////////////////////////// Fonction qui gère "l'intelligence artificelle" du jeu ///////////////////////////////////////////////////
+/////////////////////////////////////////////////// Fonctions qui gère "l'intelligence artificelle" du jeu ///////////////////////////////////////////////////
 
-function AI()
+function AI() //Pout création toutes les 2 secondes
 {
 	if(zombies.length==0) //On crée un personnage dès le début du jeu
 	{
 		goblin.create(); //On utilise la méthode create du personnage souhaité
 		zombies.push(goblin); //On l'ajoute au tableau
 	}
+
 	creation=setInterval(function() { //setInterval qui permet de créer un personnage toutes les 2 secondes
-		if(compt<=30) { //Si on est encore sous la barre des 30 secs, il n'y a que des gobelins
+		if(compt<30) { //Si on est encore sous la barre des 30 secs, il n'y a que des gobelins
 			var newgoblin=Object.create(goblin); //On crée un nouveau gobelin sur la base de notre objet gobelin (donc il a tous les mêmes arguments)
 			newgoblin.change(); //On lui initialise de nouvelles coordonnées et on remet ses données à 0;
 			zombies.push(newgoblin); //on le rajoute au tableau
 		}
-
 
 		if(compt>=140 && createsauron==false) { //Si on passe la barre des 2m20 (140 secondes)
 			var newsauron=Object.create(sauron);
@@ -578,10 +580,13 @@ function AI()
 			createsauron=true;
 			play(); //Musique d'entrée pour le boss qui se lance et ce jusqu'à la fin du jeu
 			music2=false;
+			clearInterval(creation);
+			clearInterval(move);
+			AI2();
 		}
 
-		if(compt>=100) { //Si on arrive à la moitié du jeu, on tire au hasard le ou les personnages qui vont apparaître
-			choice=Math.round(Math.random()*6); //Donne un chiffre entre 0 et 6
+		if(compt>=100) { 
+			choice=Math.round(Math.random()*2); //Donne un chiffre entre 0 et 2
 			switch(choice) {
 				case 0: //Si c'est 0 on crée que le gobelin
 					var newgoblin=Object.create(goblin);
@@ -593,52 +598,17 @@ function AI()
 					newnazgul.change();
 					zombies.push(newnazgul);
 					break;
-				case 2: //Si c'est 2 on crée le gobelin et le nazgul
-					var newgoblin=Object.create(goblin);
-					newgoblin.change();
-					zombies.push(newgoblin);
-					var newnazgul=Object.create(nazgul);
-					newnazgul.change();
-					zombies.push(newnazgul);
-					break;
-				case 3: //Si c'est 3 on crée que la balrog
+				case 2: //Si c'est 2 on crée que la balrog
 					var newbalrog=Object.create(balrog);
 					newbalrog.change();
 					zombies.push(newbalrog);
-					break;
-				case 4: //Si c'est 4 on crée le nazgul et le balrog
-					var newnazgul=Object.create(nazgul);
-					newnazgul.change();
-					zombies.push(newnazgul);
-					var newbalrog=Object.create(balrog);
-					newbalrog.change();
-					zombies.push(newbalrog);
-					break;
-				case 5: //Si c'est 5 on crée le gobelin et le balrog
-					var newgoblin=Object.create(goblin);
-					newgoblin.change();
-					zombies.push(newgoblin);
-					var newbalrog=Object.create(balrog);
-					newbalrog.change();
-					zombies.push(newbalrog);
-					break;
-				case 6: //Si c'est 6 on crée le gobelin, le balrog et le nazgul
-					var newgoblin=Object.create(goblin);
-					newgoblin.change();
-					zombies.push(newgoblin);
-					var newbalrog=Object.create(balrog);
-					newbalrog.change();
-					zombies.push(newbalrog);
-					var newnazgul=Object.create(nazgul);
-					newnazgul.change();
-					zombies.push(newnazgul);
 					break;
 			}
 		}
-
-		if(compt>=30 && sec100==false) { //Si on arrive à 30 secondes du jeu mais pas encore à la moitié, on crée au hasard le gobelin, le nazgul ou les deux
+		
+		if(compt>=30 && sec100==false) { //Si on arrive à 30 secondes du jeu mais pas encore à la moitié, on crée au hasard le gobelin ou le nazgul
 			if(compt==100) { sec100=true; } //Dès qu'on arrive à la moitié du jeu, on passe à la boucle supérieur
-			choice=Math.round(Math.random()*2);
+			choice=Math.round(Math.random()*1);
 			switch(choice) {
 				case 0:
 					var newgoblin=Object.create(goblin);
@@ -646,14 +616,6 @@ function AI()
 					zombies.push(newgoblin);
 					break;
 				case 1:
-					var newnazgul=Object.create(nazgul);
-					newnazgul.change();
-					zombies.push(newnazgul);
-					break;
-				case 2:
-					var newgoblin=Object.create(goblin);
-					newgoblin.change();
-					zombies.push(newgoblin);
 					var newnazgul=Object.create(nazgul);
 					newnazgul.change();
 					zombies.push(newnazgul);
@@ -666,6 +628,7 @@ function AI()
 			zombies[i].create();
 		}
 	},2000)
+
 	move=setInterval(function () { //setInterval qui cadence le mouvement des zombies toutes les 100ms
 		if(compt != 200) { //Si on a pas épuisé le timer
 			if(life>0 && life <=10) //Et si on a encore de la vie
@@ -708,6 +671,80 @@ function AI()
 	},100)
 }
 
+function AI2() {
+	creation2=setInterval( function () { //On crée maintenant un personnage toutes les secondes
+		if(compt>=100) { 
+			choice=Math.round(Math.random()*2); //Donne un chiffre entre 0 et 2
+			switch(choice) {
+				case 0: //Si c'est 0 on crée que le gobelin
+					var newgoblin=Object.create(goblin);
+					newgoblin.change();
+					zombies.push(newgoblin);
+					break;
+				case 1: //Si c'est 1 on crée que le nazgul
+					var newnazgul=Object.create(nazgul);
+					newnazgul.change();
+					zombies.push(newnazgul);
+					break;
+				case 2: //Si c'est 2 on crée que la balrog
+					var newbalrog=Object.create(balrog);
+					newbalrog.change();
+					zombies.push(newbalrog);
+					break;
+			}
+		}
+	},1000)
+
+	move2=setInterval(function () { //setInterval qui cadence le mouvement des zombies toutes les 100ms
+		if(compt != 200) { //Si on a pas épuisé le timer
+			if(life>0 && life <=10) //Et si on a encore de la vie
+			{
+				for(var i=0;i<zombies.length;i++)
+				{
+					zombies[i].move(); //Les personnages avancent
+				}
+			}
+			else { //Sinon, on a plus de vie et le timer n'est pas fini, on a donc perdu
+				if(compt>=140) { //Si la minute n'est pas passée on stoppe le clearInterval qui concerne la création toutes les secondes
+					clearInterval(creation2); 
+					clearInterval(move2);
+				} 
+				else { //Sinon on stoppe le clearInterval qui concerne la création toutes les deux secondes
+					clearInterval(creation);
+					clearInterval(move); 
+				}
+				clearTimeout(time);
+				document.getElementById("cv").style.webkitFilter = "blur(3px)" //On affiche un effet flou au canvas
+				document.getElementById("loose").style.display = "block"; //On affiche le texte pour la défaite
+				loose=true;
+				document.onkeydown = function(e) {
+					if(e.key === "r") //Si on appuie sur la touche 'R' du clavier, alors on peut restart le jeu
+					{
+						window.location.reload(); //On rafraîchit simplement la page
+					}
+				}
+				play(); //On joue la musique lorsqu'on perd
+			}
+		}
+		else { //Si le timer est épuisé et qu'il nous reste de la vie, on gagne
+		  	clearInterval(creation2);
+			clearInterval(move2);
+			clearTimeout(time);
+			win=true;
+			document.getElementById("won").style.display = "block";
+			document.getElementById("cv").style.webkitFilter = "blur(3px)";
+			document.onkeydown = function(e) {
+				if(e.key === "r")
+				{
+					window.location.reload();
+				}
+			}
+			play(); //Musique de la victoire
+			onclick_page(); //On active la gestions des clics
+		}
+	},100)
+}
+
 /////////////////////////////////////////////////// Fonction qui gère la fonction pause du jeu ///////////////////////////////////////////////////
 
 function stop() { 
@@ -717,8 +754,14 @@ function stop() {
 			if(pause==false && loose==false && win==false) //Si on était pas en pause et que le joueur n'a pas perdu ni gagner
 			{
 				//On stoppe tous les setInterval, y compris celui du timer
-				clearInterval(creation);
-				clearInterval(move);
+				if(compt>=140) { //Si la minute n'est pas passée on stoppe le clearInterval qui concerne la création toutes les secondes
+					clearInterval(creation2); 
+					clearInterval(move2);
+				} 
+				else { //Sinon on stoppe le clearInterval qui concerne la création toutes les deux secondes
+					clearInterval(creation);
+					clearInterval(move); 
+				}
 				clearTimeout(time);
 
 				pause=true;
@@ -730,7 +773,12 @@ function stop() {
 			{
 				document.getElementById("cv").style.webkitFilter = "blur(0px)" //On enlève l'effet de flou
 				document.getElementById("pause").style.display = "none"; //On n'affiche plus le texte de pause
-				AI(); //On reprend le jeu
+				if(compt>=140) { //On reprend le jeu sur AI2 si on a passé la minute (création toutes les secondes)
+					AI2(); 
+				} 
+				else { //Sinon on reprend le jeu normal (création toutes les 2 secondes)
+					AI(); 
+				} 
 				time=setTimeout(startTimer,1000); //On reprend le timer
 				pause=false;
 				play();
@@ -752,36 +800,48 @@ function onclick_page(event)
   if(pause == false) { //Si la pause n'est pas activé, pour éviter de tricher et de tuer les zombies pendant qu'on est en pause
   	if(zombies.length!=0) {
   		for(var i=0; i<zombies.length; i++) {
-		    if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 80))  //On identifie le zombie sur lequel on tire et en fonction on établit une zone de vérité pour le tir
+		    if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 70) && cy>(zombies[i].y) && cy<(zombies[i].y + 90))  //On identifie le zombie sur lequel on tire et en fonction on établit une zone de vérité pour le tir
 		    {
 				zombies[i].lifebalrog--; //On descend la vie du zombie
 				if (zombies[i].lifebalrog == 0){ //Si la vie du zombie est à 0
 					zombies.splice(i,1); //On le supprime
 					point+=5; //On gagne x points
 				}
+				if(zombies.length==0) { //Si on a tué le seul zombie sur le terrain, on refresh
+					drawGround();
+				}
 		    }
-			if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 100)) 
+			if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 70) && cy>(zombies[i].y) && cy<(zombies[i].y + 90)) 
 			{
 				zombies[i].lifenazgul--;
 				if (zombies[i].lifenazgul == 0){
 					zombies.splice(i,1);
 					point+=3;
 				}
+				if(zombies.length==0) {
+					drawGround();
+				}
 		    }
-			if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 60) && cy>(zombies[i].y) && cy<(zombies[i].y + 150)) 
+			if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 90)) 
 			{
 				zombies[i].lifesauron--;
 				if (zombies[i].lifesauron == 0){
 					zombies.splice(i,1);
 					point+=30;
 				}
+				if(zombies.length==0) {
+					drawGround();
+				}
 			}
-			if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 50)) 
+			if(zombies[i].name=="goblin" && cx>(zombies[i].x) && cx<(zombies[i].x + 32) && cy>(zombies[i].y) && cy<(zombies[i].y + 32)) 
 			{
 				zombies[i].lifegoblin--;
 				if (zombies[i].lifegoblin == 0){
 					zombies.splice(i,1);
 					point++;
+				}
+				if(zombies.length==0) {
+					drawGround();
 				}
 		    }
 	  	}
