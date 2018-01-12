@@ -318,7 +318,7 @@ var nazgul = {
 	img: imnazgul,
 	name:"nazgul",
 	lifenazgul:2,
-	lifeBarNazgul:Array(BarreVerte,BarreVerte),
+	lifeBarNazgul:Array(BarreVerte,BarreOrangeNazgul),
 	tx: 0,
 	ty: 0,
 	x: Math.round(Math.random()*601),
