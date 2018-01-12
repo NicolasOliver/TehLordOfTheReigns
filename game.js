@@ -710,7 +710,7 @@ function onclick_page(event)
   var rect = cs.getBoundingClientRect();
   var cx = event.clientX - rect.left;
   var cy = event.clientY - rect.top;
-	var i=0;
+  var i=0;
 
   while (true){
     if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 80) ) {
