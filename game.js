@@ -83,6 +83,9 @@ var towerIsengard = new Image();
 towerIsengard.src="towerIsengard.png";
 var towerSauron = new Image();
 towerSauron.src="towerSauron.png";
+//Image pour le sans quand on tire sur zombie
+var sang = new Image();
+sang.src="sang.png";
 
 //===================== Variable de son (utilisation de SoundManager) =====================//
 
@@ -319,81 +322,129 @@ var sauron = {
 		//En fonction de la vie du boss, on affiche une barre différente pour voir que ça décroît//
 		if(this.lifesauron == 25){
 			ctx.drawImage(this.lifeBarSauron[0],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			this.born=true;
 		}
 		if(this.lifesauron == 24){
 			ctx.drawImage(this.lifeBarSauron[1],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 23){
 			ctx.drawImage(this.lifeBarSauron[2],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 22){
 			ctx.drawImage(this.lifeBarSauron[3],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 21){
 			ctx.drawImage(this.lifeBarSauron[4],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 20){
 			ctx.drawImage(this.lifeBarSauron[5],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 19){
 			ctx.drawImage(this.lifeBarSauron[6],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 18){
 			ctx.drawImage(this.lifeBarSauron[7],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 17){
 			ctx.drawImage(this.lifeBarSauron[8],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 16){
 			ctx.drawImage(this.lifeBarSauron[9],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 15){
 			ctx.drawImage(this.lifeBarSauron[10],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 14){
 			ctx.drawImage(this.lifeBarSauron[11],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 13){
 			ctx.drawImage(this.lifeBarSauron[12],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 12){
 			ctx.drawImage(this.lifeBarSauron[13],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 11){
 			ctx.drawImage(this.lifeBarSauron[14],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 10){
 			ctx.drawImage(this.lifeBarSauron[15],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 9){
 			ctx.drawImage(this.lifeBarSauron[16],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 8){
 			ctx.drawImage(this.lifeBarSauron[17],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 7){
 			ctx.drawImage(this.lifeBarSauron[18],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 6){
 			ctx.drawImage(this.lifeBarSauron[19],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 5){
 			ctx.drawImage(this.lifeBarSauron[20],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 4){
 			ctx.drawImage(this.lifeBarSauron[21],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 3){
 			ctx.drawImage(this.lifeBarSauron[22],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 2){
 			ctx.drawImage(this.lifeBarSauron[23],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
 		if(this.lifesauron == 1){
 			ctx.drawImage(this.lifeBarSauron[24],0,0,482,195,this.x+5,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+50,50,70);
 		}
-		ctx.drawImage(this.img,this.sx,this.sy,127,256,this.x,this.y,80,150);
-		this.born=true;
 	},
 	move: function() {
 		this.sx=this.sx+127;
@@ -456,15 +507,19 @@ var balrog = {
 		}
 		if(this.lifebalrog == 3){
 			ctx.drawImage(this.lifeBarBalrog[0],0,0,482,195,this.x+15,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
+			this.born=true;
 		}
 		if(this.lifebalrog == 2){
 			ctx.drawImage(this.lifeBarBalrog[1],0,0,482,195,this.x+15,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
+			ctx.drawImage(sang,0,0,340,220,this.x+25,this.y+45,30,30);
 		}
 		if (this.lifebalrog == 1){
 			ctx.drawImage(this.lifeBarBalrog[2],0,0,482,195,this.x+15,this.y-2,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
+			ctx.drawImage(sang,0,0,340,220,this.x+25,this.y+45,30,30);
 		}
-		ctx.drawImage(this.img,this.sx,this.sy,129,108,this.x,this.y,100,100);
-		this.born=true;
 	},
 	move: function() {
 		this.sx=this.sx+129;
@@ -527,12 +582,14 @@ var nazgul = {
 		}
 		if(this.lifenazgul == 2){
 			ctx.drawImage(this.lifeBarNazgul[0],0,0,482,195,this.x+5,this.y-5,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,160,195,this.x,this.y,100,100);
+			this.born=true;
 		}
 		else {
 			ctx.drawImage(this.lifeBarNazgul[1],0,0,482,195,this.x+5,this.y-5,70,20);
+			ctx.drawImage(this.img,this.sx,this.sy,160,195,this.x,this.y,100,100);
+			ctx.drawImage(sang,0,0,340,220,this.x+10,this.y+40,50,70);
 		}
-		ctx.drawImage(this.img,this.sx,this.sy,160,195,this.x,this.y,100,100);
-		this.born=true;
 	},
 	move: function() {
 		this.sx=this.sx+160;
@@ -585,7 +642,7 @@ function AI() //Pout création toutes les 2 secondes
 			AI2();
 		}
 
-		if(compt>=100) { 
+		if(compt>100) { 
 			choice=Math.round(Math.random()*2); //Donne un chiffre entre 0 et 2
 			switch(choice) {
 				case 0: //Si c'est 0 on crée que le gobelin
@@ -605,8 +662,8 @@ function AI() //Pout création toutes les 2 secondes
 					break;
 			}
 		}
-		
-		if(compt>=30 && sec100==false) { //Si on arrive à 30 secondes du jeu mais pas encore à la moitié, on crée au hasard le gobelin ou le nazgul
+
+		if(compt>=30 && sec100==false && compt<=100) { //Si on arrive à 30 secondes du jeu mais pas encore à la moitié, on crée au hasard le gobelin ou le nazgul
 			if(compt==100) { sec100=true; } //Dès qu'on arrive à la moitié du jeu, on passe à la boucle supérieur
 			choice=Math.round(Math.random()*1);
 			switch(choice) {
@@ -673,7 +730,7 @@ function AI() //Pout création toutes les 2 secondes
 
 function AI2() {
 	creation2=setInterval( function () { //On crée maintenant un personnage toutes les secondes
-		if(compt>=100) { 
+		if(compt>140) { 
 			choice=Math.round(Math.random()*2); //Donne un chiffre entre 0 et 2
 			switch(choice) {
 				case 0: //Si c'est 0 on crée que le gobelin
@@ -800,7 +857,7 @@ function onclick_page(event)
   if(pause == false) { //Si la pause n'est pas activé, pour éviter de tricher et de tuer les zombies pendant qu'on est en pause
   	if(zombies.length!=0) {
   		for(var i=0; i<zombies.length; i++) {
-		    if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 70) && cy>(zombies[i].y) && cy<(zombies[i].y + 90))  //On identifie le zombie sur lequel on tire et en fonction on établit une zone de vérité pour le tir
+		    if (zombies[i].name=="balrog" && cx>(zombies[i].x) && cx<(zombies[i].x + 90) && cy>(zombies[i].y) && cy<(zombies[i].y + 90))  //On identifie le zombie sur lequel on tire et en fonction on établit une zone de vérité pour le tir
 		    {
 				zombies[i].lifebalrog--; //On descend la vie du zombie
 				if (zombies[i].lifebalrog == 0){ //Si la vie du zombie est à 0
@@ -811,7 +868,7 @@ function onclick_page(event)
 					drawGround();
 				}
 		    }
-			if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 70) && cy>(zombies[i].y) && cy<(zombies[i].y + 90)) 
+			if(zombies[i].name=="nazgul" && cx>(zombies[i].x) && cx<(zombies[i].x + 90) && cy>(zombies[i].y) && cy<(zombies[i].y + 90)) 
 			{
 				zombies[i].lifenazgul--;
 				if (zombies[i].lifenazgul == 0){
@@ -822,7 +879,7 @@ function onclick_page(event)
 					drawGround();
 				}
 		    }
-			if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 50) && cy>(zombies[i].y) && cy<(zombies[i].y + 90)) 
+			if(zombies[i].name=="sauron" && cx>(zombies[i].x) && cx<(zombies[i].x + 80) && cy>(zombies[i].y) && cy<(zombies[i].y + 150)) 
 			{
 				zombies[i].lifesauron--;
 				if (zombies[i].lifesauron == 0){
